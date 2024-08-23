@@ -1,0 +1,104 @@
+Name: LinkedIn
+Type: context
+Description: interact with linkedin through the web browser session.
+Share Context: linkedin_context
+
+---
+Name: linkedin_context
+Share Tools: my_feed, search, notifications, visit_profile, mynetwork_invitation_manager, job_search
+Tools: github.com/gptscript-ai/browser
+Share Context: browser_ctx
+
+#!sys.echo
+Confirm the final information before taking the action to create, update, or delete.
+Do not show the user the tabID in the final response output, but do remember it.
+---
+Name: browser_ctx
+
+#!sys.echo
+
+Always remember the tabID and reuse them.
+Never use the getPageContent tool, it will crash the app.
+ALWAYS filter pages on the "main" tag from the page.
+Always include tabID in the response.
+When job searching, the query parameter currentJobId=<id> should be changed to match the job id, also include the other original query params.
+---
+Name: my_feed
+Description: load the users feed
+Context: browser_ctx
+Tools: github.com/cloudnautique/browser
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+
+If the user needs to signin, have them do so.
+Load the url: https://linkedin.com/feed
+provide a title, summary and author for each of the posted items.
+---
+Name: search
+Description: Search and follow up on searches using this tool
+Context: browser_ctx
+Params: keywords: URL encoded key words to search for.
+Params: additionalQueryParams: (optional) for additional query parameters beyond the initial keywords.
+Params: clusterTitle: default is 'all', but can be groups, events, people, products, etc.
+Tools: github.com/cloudnautique/browser
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+
+If ${CLUSTERTITLE} is post, change to the clustertitle to 'content'
+if ${CLUSTERTITLE} is jobs respond to use the job_search tool.
+
+Use the browser tool to visit the url https://www.linkedin.com/search/results/${CLUSTERTITLE}/?keywords=${KEYWORDS}
+Also include the links for each category to "See all ..."
+---
+Name: job_search
+Description: Interact with the job searching tools
+Context: browser_ctx
+Params: keywords: URL encoded key words to search for.
+Params: additionalQueryParams: (optional) for additional query parameters beyond the initial keywords
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+Tools: github.com/cloudnautique/browser
+
+Use the browser tool to get jobs using this URL format https://www.linkedin.com/jobs/search?${KEYWORDS}&${ADDITIONALQUERYPARAMS}
+Filter the page using the "main" tag
+Provide the user a list the Job titles, company and location
+Show the pay range if available.
+Show any mutual connections.
+Also provide a brief summary of the position
+Also provide value of the data-job-id tag.
+---
+Name: notifications
+Description: Interact with the users notifications
+Context: browser_ctx
+Tools: github.com/cloudnautique/browser
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+
+Use the browser tool to get the users notifications at https://www.linkedin.com/notifications/?filter=all
+when processing results look for the nt-card--unread class and return those results.
+Ask the user if they want to see more. If they say yes, then get additional notifications.
+---
+Name: visit_profile
+Description: visit a users profile
+Context: browser_ctx
+Tools: github.com/cloudnautique/browser
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+Params: user: (required) the linkedin username to vist.
+
+Use the browser tool to visit the profile for a user: https://linkedin.com/in/${USER}/
+when displaying show 
+Name
+Title
+Connected
+Shared Connections
+Connections
+Include experience
+Include education info
+And other relavant information.
+---
+Name: mynetwork_invitation_manager
+Description: Interact with the users network invitations.
+Context: browser_ctx
+Tools: github.com/cloudnautique/browser
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+
+Use the browser tool to visit https://linkedin.com/mynetwork/invitation-manager/
+Show all received
+List the Users name, some of the shared connections, call out if we have none.
+If they have a message show some of it.
