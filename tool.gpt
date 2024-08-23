@@ -1,14 +1,9 @@
 Name: LinkedIn
 Type: Context
-Description: interact with linkedin through the web browser session.
-Share Context: linkedin_context
-
----
-Name: linkedin_context
+Description: interact with linkedin through the web browser tool.
 Share Tools: my_feed, search, notifications, visit_profile, mynetwork_invitation_manager, job_search, job_description
 
 #!sys.echo
-Confirm the final information before taking the action to create, update, or delete.
 Do not show the user the tabID in the final response output, but do remember it.
 ---
 Name: browser_ctx
