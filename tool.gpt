@@ -12,7 +12,7 @@ Name: browser_ctx
 
 Always remember the tabID and reuse them.
 Never use the getPageContent tool, it will crash the app.
-ALWAYS filter pages on the "main" tag from the page to get content.
+ALWAYS filter pages on the "main" html tag from the page to get content
 Always include tabID in the response.
 When job searching, the query parameter currentJobId=<id> should be changed to match the job id, also include the other original query params.
 ---
@@ -51,7 +51,7 @@ Params: tabID: (optional) if you have a tabID prefer reusing it.
 Tools: github.com/cloudnautique/browser
 
 Use the browser tool to get jobs using this URL format https://www.linkedin.com/jobs/search?${KEYWORDS}&${ADDITIONALQUERYPARAMS}
-Filter the page using the "main" tag
+Filter the page using the "main" html tag
 Provide the user a list the Job titles, company and location
 Show the pay range if available.
 Show any mutual connections.
