@@ -6,8 +6,6 @@ Share Context: linkedin_context
 ---
 Name: linkedin_context
 Share Tools: my_feed, search, notifications, visit_profile, mynetwork_invitation_manager, job_search
-Tools: github.com/gptscript-ai/browser
-Share Context: browser_ctx
 
 #!sys.echo
 Confirm the final information before taking the action to create, update, or delete.
