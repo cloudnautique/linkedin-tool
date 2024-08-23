@@ -5,7 +5,7 @@ Share Context: linkedin_context
 
 ---
 Name: linkedin_context
-Share Tools: my_feed, search, notifications, visit_profile, mynetwork_invitation_manager, job_search
+Share Tools: my_feed, search, notifications, visit_profile, mynetwork_invitation_manager, job_search, job_description
 
 #!sys.echo
 Confirm the final information before taking the action to create, update, or delete.
@@ -61,6 +61,18 @@ Show the pay range if available.
 Show any mutual connections.
 Also provide a brief summary of the position
 Also provide value of the data-job-id tag.
+---
+Name: job_description
+Description: interact with job search results to get the detailed job description
+Context: browser_ctx
+Params: keywords: URL encoded key words to search for.
+Params: additionalQueryParams: (optional) for additional query parameters beyond the initial keywords
+Params: tabID: (optional) if you have a tabID prefer reusing it.
+Tools: github.com/cloudnautique/browser
+
+Use the browser tool to highlight the job
+Filter the page on the 'article' html tag.
+Provide the full details of the job description.
 ---
 Name: notifications
 Description: Interact with the users notifications
