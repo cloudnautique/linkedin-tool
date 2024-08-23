@@ -1,5 +1,5 @@
 Name: LinkedIn
-Type: context
+Type: Context
 Description: interact with linkedin through the web browser session.
 Share Context: linkedin_context
 
