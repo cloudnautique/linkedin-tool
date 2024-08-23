@@ -12,7 +12,7 @@ Name: browser_ctx
 
 Always remember the tabID and reuse them.
 Never use the getPageContent tool, it will crash the app.
-ALWAYS filter pages on the "main" tag from the page.
+ALWAYS filter pages on the "main" tag from the page to get content.
 Always include tabID in the response.
 When job searching, the query parameter currentJobId=<id> should be changed to match the job id, also include the other original query params.
 ---
@@ -39,7 +39,8 @@ If ${CLUSTERTITLE} is post, change to the clustertitle to 'content'
 if ${CLUSTERTITLE} is jobs respond to use the job_search tool.
 
 Use the browser tool to visit the url https://www.linkedin.com/search/results/${CLUSTERTITLE}/?keywords=${KEYWORDS}
-Also include the links for each category to "See all ..."
+Show the clusters and details returned on the page.
+Also include the links for each cluster to "See all ..."
 ---
 Name: job_search
 Description: Interact with the job searching tools
